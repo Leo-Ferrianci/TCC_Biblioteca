@@ -1,0 +1,18 @@
+beckend
+--yarn init -y
+--yarn add express
+--criar um arquivo index.js
+--yarn add nodemon -d
+
+--dentro do package.json
+"scripts": {
+    "dev": "nodemon index.js"
+  },
+
+(Para iniciar a aplicação)
+
+
+input mask 
+build na pasta principal 
+npm run build (dentro da paste raiz)
+
