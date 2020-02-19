@@ -11,8 +11,47 @@ beckend
 
 (Para iniciar a aplicação)
 
+=============================================================================================================================================
 
 input mask 
 build na pasta principal 
 npm run build (dentro da paste raiz)
+
+//get, post, put, delete
+
+//Tipor de parametros:
+
+//Query Params: request.query (Filtros, Ordenação, Paginação...)
+//Route Params: request.params (Identificar um recuso na alteração ou remoção)
+//Body: request.body (Dados para criação ou alteração do Registro)
+
+// app.get('/', (request,response) => {
+//     console.log(request.query);
+//     return response.json({message: 'Hello'});
+// });
+
+// app.listen(3001);
+
+// app.delete('/users/:id', (request,response) => {
+//     console.log(request.params);
+//     return response.json({message: 'Hello'});
+// });
+
+// app.listen(3001);
+
+
+=============================================================================================================================================
+
+admin
+69876987Tcc
+
+schema estruturação de dados dentro do banco
+
+==============================================================================================================================================
+pergunta do para o grupo:
+
+criar o email do usuário ou pegar do nsa
+
+
+
 
