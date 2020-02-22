@@ -1,11 +1,19 @@
 const { Router } = require('express');
-const axios = require('axios');
+
+const DevController = require('./controllers/DevController');
+const SearchController = require('./controllers/SearchController');
+
+//Importar cada rota para cada item que for usado abaixo
 
 const routes = Router();
 
-routes.post('/users', (request,response) => {
-    console.log(request.body);
-    return response.json({message: 'Hello'});
-});
+//Criar uma rota para cada item (CRUD)
+
+routes.get('/devs', DevController.index);
+routes.post('/devs',  DevController.store);
+
+routes.get('/search', SearchController.index);
+
+
 
 module.exports = routes;

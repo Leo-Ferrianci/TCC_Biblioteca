@@ -9,7 +9,9 @@ mongoose.connect('mongodb+srv://admin:69876987Tcc@cluster0-b1afa.mongodb.net/bib
     useUnifiedTopology: true
 });
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(routes);
 
-app.listen(3001);
+app.listen(3300);
+
+//Em todos os arquivos não é nescessário ; mas colocar.
