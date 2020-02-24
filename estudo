@@ -52,6 +52,14 @@ pergunta do para o grupo:
 
 criar o email do usuário ou pegar do nsa
 
+===============================================================================================================================================
+//componente: Bloco isolado de HTML, CSS e JS, o qual não interfere no restante da aplicação.
+//(é uma função que retorna algum conteúdo (html, css, javascript))
+
+//estado: Informações mantidas pelo componente (Lembrar: imutabilidade)
+
+//propriedade:Informações que um componente PAI passa para o componente FILHO
+
 
 
 
