@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const DevController = require('./controllers/DevController');
+const UserController = require('./controllers/UserController');
 const SearchController = require('./controllers/SearchController');
 
 //Importar cada rota para cada item que for usado abaixo
@@ -9,8 +9,8 @@ const routes = Router();
 
 //Criar uma rota para cada item (CRUD)
 
-routes.get('/devs', DevController.index);
-routes.post('/devs',  DevController.store);
+routes.get('/register', UserController.index);
+routes.post('/register',  UserController.store);
 
 routes.get('/search', SearchController.index);
 

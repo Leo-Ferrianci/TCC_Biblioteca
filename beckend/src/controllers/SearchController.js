@@ -1,4 +1,4 @@
-const Dev = require('../models/Dev');
+const Dev = require('../models/User');
 const ParseStringAsArray = require("./utils/parseStringAsArray");
 //importar o que for buscar
 //Buscar todos os devs num raio 10km
