@@ -8,6 +8,7 @@ import {
 import Home from './pages/Home'
 import Curso from './pages/Curso'
 import Create from './pages/Create'
+import  Login from './pages/Login'
 
 export default function BasicExample() {
   return (
@@ -21,6 +22,9 @@ export default function BasicExample() {
         </Route>
         <Route path="/create">
           <Create />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
       </Switch>
     </Router>

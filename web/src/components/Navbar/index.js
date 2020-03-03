@@ -33,7 +33,7 @@ export default function NavBar() {
           src={cps}
         />
         <Nav className="ml-auto mb-auto">
-          <Nav.Link href="#login" style={{ color: '#fff' }}>Login</Nav.Link>
+          <Nav.Link href="/login" style={{ color: '#fff' }}>Login</Nav.Link>
         </Nav>
       </Navbar>
       <Navbar style={{ backgroundColor: "#8b0000", height: 60 }}>

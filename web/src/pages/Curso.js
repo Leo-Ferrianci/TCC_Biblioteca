@@ -1,131 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import api from '../services/api';
-import { Link } from "react-router-dom"
-
-import '../App.css';
-import '../assets/css/global.css';
-import '../assets/css/Main.css';
-import '../assets/css/Sidebar.css';
-
-
-import DevItem from '../components/Devitem/index'
+import React, { useState } from 'react';
 import NavBar from '../components/Navbar/index'
+import FooterPage from '../components/Footer/index';
+import Sidebar from '../components/Sidebar'
+import administracao from '../assets/img/book.png';
+import {
+  Col,
+  Row,
+  Table,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
 
-function App() {
-  const [devs, setDevs] = useState([]);
-  const [github_username, setGithubUsername] = useState('');
-  const [techs, setTechs] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-
-        setLatitude(latitude);
-        setLongitude(longitude);
-      },
-      (err) => {
-        console.log(err);
-      },
-      {
-        timeout: 30000,
-      }
-    )
-  }, []);
-
-  useEffect(() => {
-    async function loadDevs() {
-      const response = await api.get('/devs');
-      setDevs(response.data);
-    }
-    loadDevs();
-  }, []);
-
-  async function HandleAddDev(e) {
-    e.prevent.Default();
-
-    const response = await api.post('/devs', {
-      github_username,
-      techs,
-      latitude,
-      longitude
-    })
-
-    setGithubUsername('');
-    setTechs('');
-    setDevs([...devs, response.data])
-  }
-
+export default function Home() {
   return (
-    <>
-      <div id='app'>
-      <Link to="/about">About</Link>
-        <aside>
-          <strong>Cadastrar</strong>
-          <form onSubmit={HandleAddDev}>
-            <div className="input-block">
-              <label htmlFor="github_username">Usuário do Github</label>
-              <input
-                name="github_username"
-                id="github_username"
+    <div>
+      <NavBar />
+      <Row >
+        <Col lg="3">
+          <Sidebar />
+        </Col>
+        <Col lg="9">
+          <Form>
+            <FormGroup>
+              <Input
+                type="text"
+                name="text"
+                placeholder="Search"
                 required
-                value={github_username}
-                onChange={e => setGithubUsername(e.target.value)}
+                style={{width:'30%', marginTop:20}}
               />
-            </div>           
+            </FormGroup>
+            <Table striped>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Form>
 
-            <div className="input-block">
-              <label htmlFor="techs">Tecnologias</label>
-              <input
-                name="techs"
-                id="techs"
-                required
-                value={techs}
-                onChange={e => setTechs(e.target.value)}
-              />
-            </div>
-
-            <div className="input-group">
-              <div className="input-block">
-                <label htmlFor="latitude">Latitude</label>
-                <input
-                  type="number"
-                  name="latitude"
-                  id="latitude"
-                  required
-                  value={latitude}
-                  onChange={e => setLatitude(e.target.value)}
-                />
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="longitude">Longitude</label>
-                <input
-                  type="number"
-                  name="longitude"
-                  id="longitude"
-                  required
-                  value={longitude}
-                  onChange={e => setLongitude(e.target.value)}
-                />
-              </div>
-            </div>
-            <button type="submit">Salvar</button>
-          </form>
-        </aside>
-
-        <main>
-          <ul>
-            {devs.map(dev => (
-              <DevItem key={dev._id} dev={dev} />
-            ))}
-          </ul>
-        </main>
-      </div>
-    </>
+        </Col>
+      </Row>
+      <FooterPage />
+    </div>
   );
-}
 
-export default App;
+}
