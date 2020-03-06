@@ -22,7 +22,7 @@ npm run build (dentro da paste raiz)
 //Tipor de parametros:
 
 //Query Params: request.query (Filtros, Ordenação, Paginação...)
-//Route Params: request.params (Identificar um recuso na alteração ou remoção)
+//Route Params: request.params (Identificar um recurso na alteração ou remoção)
 //Body: request.body (Dados para criação ou alteração do Registro)
 
 // app.get('/', (request,response) => {

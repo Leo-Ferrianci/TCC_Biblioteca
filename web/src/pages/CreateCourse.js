@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../components/Navbar/index'
 import FooterPage from '../components/Footer/index';
 import Sidebar from '../components/Sidebar'
@@ -17,7 +17,21 @@ import {
     Button
 } from 'reactstrap';
 
+import api from "../services/api";
+
 export default function Home() {
+    const [name, setName] = useState('')
+    const [image, setImage] = useState('')
+
+    async function sendCourse() {
+        const response = await api.post(`/course`, {
+          name,
+          image,
+        }).catch(e => {
+          alert('Erro ao enviar dados')
+        })
+      }
+
     return (
         <div>
             <NavBar />
@@ -41,12 +55,20 @@ export default function Home() {
                                     <Input
                                         type="text"
                                         name="text"
+                                        value={name}
+                                        onChange={event => setName(event.target.value)}
                                         required
                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="exampleFile">Imagem do Curso</Label>
-                                    <Input type="file" name="file" id="exampleFile" />
+                                    <Input 
+                                    type="file" 
+                                    name="file" 
+                                    id="exampleFile"
+                                    value={image}
+                                    onChange={event => setImage(event.target.value)} 
+                                    />
                                     <FormText color="muted">
                                         Está Imagem será a capa do curso criado.
                                     </FormText>
@@ -60,6 +82,7 @@ export default function Home() {
                                         height: "5%",
                                         marginTop: 15
                                     }}
+                                    onClick={sendCourse}
                                 >
                                     Criar Curso
                                     </Button>

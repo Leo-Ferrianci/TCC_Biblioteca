@@ -7,7 +7,7 @@ import {
 
 import Home from './pages/Home'
 import Curso from './pages/Curso'
-import Create from './pages/Create'
+import Create from './pages/CreateCourse'
 import  Login from './pages/Login'
 
 export default function BasicExample() {
