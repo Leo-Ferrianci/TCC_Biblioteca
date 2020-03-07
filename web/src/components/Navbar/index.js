@@ -1,17 +1,54 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/img/logo2.png';
 import cps from '../../assets/img/cps.jpg';
 import {
-  Button,
-  Nav,
+  Collapse,
   Navbar,
-  FormControl,
-  Dropdown
-} from 'react-bootstrap';
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  NavbarText,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle
+} from 'reactstrap';
 
+import api from "../../services/api";
 
 export default function NavBar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState('')
+  const [controller, setController] = useState('')
+  const toggle = () => setIsOpen(!isOpen);
+
+  async function logout() {
+    localStorage.clear();
+    window.location.replace('/login')
+  }
+
+  useEffect(() => {
+    async function getUserName() {
+      const _id = localStorage.getItem('_id')
+
+      if (_id) {
+        const response = await api.get(`/register/${_id}`).catch(e => {
+
+        });
+        setUser(response.data.user)
+        setController(response.data.controller)
+      } else {
+
+      }
+
+    }
+    getUserName()
+
+  }, [])
+
+
   return (
     <>
       <Navbar style={{ backgroundColor: "#231f20" }}>
@@ -27,31 +64,50 @@ export default function NavBar() {
             height: 90,
             width: 350,
             borderRadius: 10,
-            marginLeft: "25%",
-            marginBottom: 10
+            marginBottom: 10,
           }}
           src={cps}
         />
-        <Nav className="ml-auto mb-auto">
-          <Nav.Link href="/login" style={{ color: '#fff' }}>Login</Nav.Link>
-        </Nav>
+        <span onClick={logout} style={{ color: '#fff', cursor: 'pointer' }} >
+          Sair
+        </span>
+
       </Navbar>
-      <Navbar style={{ backgroundColor: "#8b0000", height: 60 }}>
-        <Navbar.Brand href="#home">
-        </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav className="">
-            <div
-              className=""
-              style={{
-                color: '#fff',
-                fontFamily: 'bold',
-                fontSize: 20
-              }}
-            >
-              Biblioteca Virtual de Trabalhos de Conclusão de Curso
-                        </div>
-          </Nav>
+
+      <Navbar style={{ backgroundColor: '#8b0000' }} light expand="md">
+        <NavbarBrand href="/home" style={{ color: '#fff' }}>
+          Biblioteca Virtual de TCC
+        </NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Nav className="mr-auto" navbar>
+          <NavItem>
+            <NavLink href="https://www.cps.sp.gov.br" style={{ color: '#fff' }}>CPS</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="" style={{ color: '#fff' }}>NSA</NavLink>
+          </NavItem>
+        </Nav>
+        <Nav navbar>
+          {controller == 1 ? (
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret style={{ color: '#fff' }}>
+                Bem Vindo, {user}
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <NavLink href="/admin/student" style={{ color: "#231f20" }}>CRUD Aluno</NavLink>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <NavLink href="" style={{ color: "#231f20" }}>CRUD Curso</NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          ) : (
+              <>
+                <NavbarText style={{ color: '#fff' }} >Bem Vindo, {user}</NavbarText>
+              </>
+            )}
         </Nav>
       </Navbar>
     </>

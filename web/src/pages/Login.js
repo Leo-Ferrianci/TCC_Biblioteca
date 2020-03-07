@@ -16,11 +16,13 @@ import {
 
 import api from '../services/api'
 
-export default function Home() {
+export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [load, setLoad] = useState(false)
 
-    async function getAuthInfo() {
+    async function handleLogin() {
+        setLoad(true)
         const response = await api.post(`authenticate`, {
             email, password
         }).catch(e => {
@@ -28,16 +30,18 @@ export default function Home() {
         });
 
         if (response.data) {
-            localStorage.setItem('auth_id', response.data.user._id)
+            console.log()
+            localStorage.setItem('_id', response.data.user._id)
             localStorage.setItem('token', response.data.token)
-            window.location.replace(`/create`)
+            setTimeout(() => setLoad(false), 3000)
+            window.location.replace(`/home`)
         }
     }
 
     return (
         <>
-            <Container 
-            className="d-flex justify-content-center" >
+            <Container
+                className="d-flex justify-content-center" >
                 <Card
                     style={{
                         backgroundColor: "#eeeeee",
@@ -52,7 +56,7 @@ export default function Home() {
                         </span>
                     </CardHeader>
                     <CardBody>
-                        <Form onSubmit={getAuthInfo} required>
+                        <Form required>
                             <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
                                 <Input
@@ -76,16 +80,23 @@ export default function Home() {
                                 />
                             </FormGroup>
                             <div className="text-center">
-                                <Button
-                                    style={{
-                                        backgroundColor: "#8b0000",
-                                        width: "25%",
-                                        height: "5%",
-                                        marginTop: 15
-                                    }}
-                                >
-                                    Entrar
+                                {load == false ? (
+                                    <Button
+                                        onClick={handleLogin}
+                                        style={{
+                                            backgroundColor: "#8b0000",
+                                            width: "25%",
+                                            height: "5%",
+                                            marginTop: 15
+                                        }}
+                                    >
+
+                                        Entrar
                                     </Button>
+                                ) : (
+                                        <>
+                                        </>
+                                    )}
                             </div>
                         </Form>
                     </CardBody>

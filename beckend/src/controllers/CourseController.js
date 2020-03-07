@@ -1,7 +1,7 @@
 const Course = require('../models/Course');
 
 module.exports = {
-    async index(req, res){
+    async index(req, res) {
         const data = await Course.find();
 
         return res.json(data);
@@ -15,7 +15,7 @@ module.exports = {
         return res.json(data);
     },
 
-    async store(req,res) {
+    async store(req, res) {
         const {
             name,
             image
@@ -30,26 +30,26 @@ module.exports = {
     },
 
     async update(req, res) {
-        const { _id } = req.params; 
-    
+        const { _id } = req.params;
+
         const {
             name,
             image
         } = req.body;
-    
+
         const data = await Course.findByIdAndUpdate(_id, {
             name,
             image
         });
-    
+
         return res.json(data);
-      },
-    
-      async delete(req, res) {
+    },
+
+    async delete(req, res) {
         const { _id } = req.params;
-    
+
         await Course.findByIdAndDelete(_id);
-    
-        return res.json({message: 'Dados deletados com sucesso'});
-      },
+
+        return res.json({ message: 'Dados deletados com sucesso' });
+    },
 }

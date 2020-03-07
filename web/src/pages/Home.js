@@ -8,20 +8,17 @@ import {
     Row,
     Card,
     CardHeader,
-    CardText,
-    DropdownItem,
-    DropdownToggle,
-    ButtonDropdown,
-    DropdownMenu,
     Button,
-    Collapse,
-    CardBody,
+    Form,
+    FormGroup,
+    Input
 } from 'reactstrap';
 
 import api from "../services/api";
 
 export default function Home() {
     const [course, setCourse] = useState([])
+    const [name, setName] = useState([])
 
     useEffect(() => {
         async function loadCourse() {
@@ -35,15 +32,38 @@ export default function Home() {
     return (
         <div>
             <NavBar />
-            <Row >
-                <Col lg="3">
+            <Row>
+                <Col lg="2">
                     <Sidebar />
                 </Col>
-                <Col lg="9">
-                    {/* Card-1 */}
-                    {course.map(course => (
-                        <Card style={{
-                            marginLeft: 50,
+                <Col lg="9" className="mb-5 ml-5">
+                    <Form inline>
+                        <FormGroup>
+                            <Input
+                                placeholder="Procurar por Curso"
+                                style={{
+                                    width: '100%',
+                                    marginTop: 30,
+                                    borderColor: '#8b0000',
+                                    borderRight:0
+
+                                }}
+                            />
+                        </FormGroup>
+                        <Button style={{
+                            marginTop: 30,
+                            borderLeft:0,
+                            backgroundColor:'#8b0000'
+
+                        }}
+                        >
+                            Procurar
+                        </Button>
+
+                    </Form>
+                    {course.map(a => (
+                        <Card key={a._id} style={{
+
                             marginTop: 50,
                             borderColor: '#8b0000',
                             width: '90%',
@@ -63,10 +83,10 @@ export default function Home() {
                                         />
                                     </Col>
                                     <Col lg="8" className="d-flex align-items-center justify-content-center">
-                                        <span style={{ fontSize: 30 }}>{course.name}</span>
+                                        <span style={{ fontSize: 30 }}>{a.name}</span>
                                     </Col>
                                     <Col lg="2" className="d-flex align-items-center justify-content-center">
-                                        <a href="/curso">
+                                        <a href="/course">
                                             <Button
 
                                                 style={{
@@ -84,7 +104,6 @@ export default function Home() {
                             </CardHeader>
                         </Card>
                     ))}
-
                 </Col>
             </Row>
             <FooterPage />

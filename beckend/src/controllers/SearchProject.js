@@ -8,8 +8,10 @@ module.exports = {
       const { name, student, pdf } = req.query;
   
       const data = await Project.find({ 
-          pdf 
+          student,
         });
+
+        
   
       return res.json(data);
     },

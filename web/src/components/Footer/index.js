@@ -20,24 +20,24 @@ export default function FooterHome() {
                 <Row>
                     <Col>
                         <div>
-                            <scan style={{ color: '#fff' }}>DESENVOLVIDO POR:</scan>
+                            <span style={{ color: '#fff' }}>DESENVOLVIDO POR:</span>
                         </div>
                         <div>
-                            <scan style={{ color: '#fff' }}>Leonardo Melo, Leonardo Souza, Luis</scan>
+                            <span style={{ color: '#fff' }}>Leonardo Melo, Leonardo Souza, Luis</span>
                         </div>
                         <div>
-                            <scan style={{ color: '#fff' }}>Marcio, Matheus, Rafael </scan>
+                            <span style={{ color: '#fff' }}>Marcio, Matheus, Rafael </span>
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <scan style={{ color: '#fff' }}>Contatos</scan>
+                            <span style={{ color: '#fff' }}>Contatos</span>
                         </div>
-                        <scan style={{ color: '#fff' }}>Localização</scan>
+                        <span style={{ color: '#fff' }}>Localização</span>
                     </Col>
                     <Col>
-                        <i class="fab fa-facebook-square"></i>
-                        <i class="fab fa-twitter-square"></i>
+                        <i className="fab fa-facebook-square"></i>
+                        <i className="fab fa-twitter-square"></i>
 
                     </Col>
 

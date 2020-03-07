@@ -1,8 +1,12 @@
 const { Router } = require('express');
 
 const UserController = require('./controllers/UserController');
+const SessionController = require("./controllers/SessionController");
+
 const CourseController = require('./controllers/CourseController');
 const ProjectController = require('./controllers/ProjectController');
+
+
 const SearchController = require('./controllers/SearchCourse');
 const SearchProject = require('./controllers/SearchProject');
 
@@ -18,6 +22,9 @@ routes.post("/register", UserController.store);
 routes.put("/register/:_id", UserController.update);
 routes.delete("/register/:_id", UserController.delete);
 
+
+routes.post("/authenticate", SessionController.create);
+
 routes.get("/course", CourseController.index);
 routes.get("/course/:_id", CourseController.show);
 routes.post("/course", CourseController.store);
@@ -30,8 +37,8 @@ routes.post("/project", ProjectController.store);
 routes.put("/project/:_id", ProjectController.update);
 routes.delete("/project/:_id", ProjectController.delete);
 
-routes.get('/search', SearchController.listCourse);
-routes.get('/project', SearchProject.listProject);
+routes.get('/list_course', SearchController.listCourse);
+routes.get('/list_project', SearchProject.listProject);
 
 
 module.exports = routes;
