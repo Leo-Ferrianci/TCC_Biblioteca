@@ -24,7 +24,7 @@ export default function BasicExample() {
         <Route path="/course">
           <Course />
         </Route>
-        <Route path="/create">
+        <Route path="/admin/create">
           <Create />
         </Route>
         <Route path="/login">

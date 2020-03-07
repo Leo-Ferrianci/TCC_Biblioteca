@@ -99,7 +99,7 @@ export default function NavBar() {
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  <NavLink href="" style={{ color: "#231f20" }}>CRUD Curso</NavLink>
+                  <NavLink href="/admin/create" style={{ color: "#231f20" }}>CRUD Curso</NavLink>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

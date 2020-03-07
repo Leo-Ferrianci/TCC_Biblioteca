@@ -2,94 +2,114 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../components/Navbar/index'
 import FooterPage from '../components/Footer/index';
 import Sidebar from '../components/Sidebar'
-import administracao from '../assets/img/book.png';
 import {
     Col,
     Row,
     Card,
     CardHeader,
-    CardBody,
+    Button,
+    Form,
     FormGroup,
     Input,
-    Form,
+    Table,
     Label,
-    FormText,
-    Button
+    CardBody
 } from 'reactstrap';
 
 import api from "../services/api";
 
-export default function Home() {
+export default function Student() {
+    const [course, setCourse] = useState([])
     const [name, setName] = useState('')
     const [image, setImage] = useState('')
+    const [load, setLoad] = useState(false)
 
-    async function sendCourse() {
-        const response = await api.post(`/course`, {
-          name,
-          image,
-        }).catch(e => {
-          alert('Erro ao enviar dados')
+    useEffect(() => {
+        async function loadCourse() {
+            const response = await api.get('/course');
+            setCourse(response.data);
+        }
+        loadCourse();
+    }, []);
+
+    async function handleRegister(e) {
+        setLoad(true)
+        const response = await api.post('/course', {
+            name,
+            image,
         })
-      }
+
+        setLoad(false)
+        setName('');
+        setImage('');
+        setCourse([...course, response.data])
+    }
+
 
     return (
         <div>
             <NavBar />
-            <Row >
-                <Col lg="3">
+            <Row>
+                <Col lg="2">
                     <Sidebar />
                 </Col>
-                <Col lg="9" className="d-flex justify-content-center">
-                    <Card className="mt-3 mb-3" style={{ width: '65%', height: 350 }}>
-                        <CardHeader 
-                        className="d-flex justify-content-center align-items-center"
-                        >
-                            <span>
-                                Criar Curso
-                            </span>
-                        </CardHeader>
-                        <CardBody>
-                            <Form>
-                                <FormGroup>
-                                    <Label>Nome do Curso</Label>
-                                    <Input
-                                        type="text"
-                                        name="text"
-                                        value={name}
-                                        onChange={event => setName(event.target.value)}
-                                        required
-                                    />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="exampleFile">Imagem do Curso</Label>
-                                    <Input 
-                                    type="file" 
-                                    name="file" 
-                                    id="exampleFile"
-                                    value={image}
-                                    onChange={event => setImage(event.target.value)} 
-                                    />
-                                    <FormText color="muted">
-                                        Está Imagem será a capa do curso criado.
-                                    </FormText>
-                                </FormGroup>
-                            </Form>
-                            <div className="text-center">
-                                <Button
-                                    style={{
-                                        backgroundColor: "#8b0000",
-                                        width: "50%",
-                                        height: "5%",
-                                        marginTop: 15
-                                    }}
-                                    onClick={sendCourse}
-                                >
-                                    Criar Curso
-                                    </Button>
-                            </div>
-                        </CardBody>
-                    </Card>
+                <Col lg="9" className="mb-5 ml-5">
+                    <Row className="mt-3">
+                        <Col lg="4">
+                            <Card>
+                                <CardBody>
+                                    <Form>
+                                        <FormGroup>
+                                            <Label for="exampleEmail">User</Label>
+                                            <Input
+                                                type="text"
+                                                name="text"
+                                                value={name}
+                                                onChange={event => setName(event.target.value)}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="exampleEmail">Email</Label>
+                                            <Input
+                                                type="email"
+                                                name="email"
+                                                value={image}
+                                                onChange={event => setImage(event.target.value)}
+                                            />
+                                        </FormGroup>
+                                        <div className="text-center">
+                                        {load == false ? (
+                                            <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
+                                        ) : (
+                                                <Button color="secundary" onClick={handleRegister}>Cadastrar</Button>
+                                            )}
+                                            </div>
+                                    </Form>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="8">
+                            <Table bordered className="" style={{ width: '100%' }}>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Editar</th>
+                                        <th>Deletar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {course.map(a => (
+                                        <tr key={a._id}>
+                                            <th scope="row">{a.name}</th>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                    ))}
 
+                                </tbody>
+                            </Table>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
             <FooterPage />

@@ -19,12 +19,12 @@ import {
 
 import api from "../services/api";
 
-export default function Home() {
+export default function Student() {
     const [student, setStudent] = useState([])
     const [user, setUser] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [controleler, setController] = useState('')
+    const [controller, setController] = useState('')
     const [load, setLoad] = useState(false)
 
     useEffect(() => {
@@ -35,25 +35,20 @@ export default function Home() {
         loadStudent();
     }, []);
 
-    async function handleRegister() {
+    async function handleRegister(e) {
         setLoad(true)
-        const response = await api.post(`/register`, {
+        const response = await api.post('/register', {
             user,
             email,
-            password
-        }).catch(e => {
-            setLoad(false)
-            alert(e.response.data.error)
-            window.location.reload()
+            password,
+            controller: 0
         })
 
-        if (response.data) {
-            setLoad(false)
-            setUser('')
-            setEmail('')
-            setPassword('')
-            setController(0)
-        }
+        setLoad(false)
+        setUser('');
+        setEmail('');
+        setPassword('');
+        setStudent([...student, response.data])
     }
 
 
@@ -65,72 +60,73 @@ export default function Home() {
                     <Sidebar />
                 </Col>
                 <Col lg="9" className="mb-5 ml-5">
-                    <div className="d-flex justify-content-center">
-                        <Card style={{ marginTop: 30, width: '80%' }}>
-                            <CardBody>
-                                <Form>
-                                    <FormGroup>
-                                        <Label for="exampleEmail">User</Label>
-                                        <Input
-                                            type="text"
-                                            name="text"
-                                            placeholder="with a placeholder"
-                                            value={user}
-                                            onChange={event => setUser(event.target.value)}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label for="exampleEmail">Email</Label>
-                                        <Input
-                                            type="email"
-                                            name="email"
-                                            placeholder="with a placeholder"
-                                            value={email}
-                                            onChange={event => setEmail(event.target.value)}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label for="examplePassword">Password</Label>
-                                        <Input
-                                            type="password"
-                                            name="password"
-                                            placeholder="password placeholder"
-                                            value={password}
-                                            onChange={event => setPassword(event.target.value)}
-                                        />
-                                    </FormGroup>
-                                    {load == false ? (
-                                        <Button color="primary" onClick={handleRegister}>primary</Button>
-                                    ) : (
-                                            <Button color="secundary" onClick={handleRegister}>primary</Button>
-                                        )}
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </div>
-                    <div className="d-flex justify-content-center mt-3">
-                        <Table bordered className="" style={{ width: '80%' }}>
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Email</th>
-                                    <th>Editar</th>
-                                    <th>Deletar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {student.map(a => (
-                                    <tr key={a._id}>
-                                        <th scope="row">{a.user}</th>
-                                        <td>{a.email}</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                    <Row className="mt-3">
+                        <Col lg="4">
+                            <Card>
+                                <CardBody>
+                                    <Form>
+                                        <FormGroup>
+                                            <Label for="exampleEmail">User</Label>
+                                            <Input
+                                                type="text"
+                                                name="text"
+                                                value={user}
+                                                onChange={event => setUser(event.target.value)}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="exampleEmail">Email</Label>
+                                            <Input
+                                                type="email"
+                                                name="email"
+                                                value={email}
+                                                onChange={event => setEmail(event.target.value)}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="examplePassword">Password</Label>
+                                            <Input
+                                                type="password"
+                                                name="password"
+                                                value={password}
+                                                onChange={event => setPassword(event.target.value)}
+                                            />
+                                        </FormGroup>
+                                        <div className="text-center">
+                                        {load == false ? (
+                                            <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
+                                        ) : (
+                                                <Button color="secundary" onClick={handleRegister}>Cadastrar</Button>
+                                            )}
+                                            </div>
+                                    </Form>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="8">
+                            <Table bordered className="" style={{ width: '100%' }}>
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Email</th>
+                                        <th>Editar</th>
+                                        <th>Deletar</th>
                                     </tr>
-                                ))}
+                                </thead>
+                                <tbody>
+                                    {student.map(a => (
+                                        <tr key={a._id}>
+                                            <th scope="row">{a.user}</th>
+                                            <td>{a.email}</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                    ))}
 
-                            </tbody>
-                        </Table>
-                    </div>
+                                </tbody>
+                            </Table>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
             <FooterPage />
