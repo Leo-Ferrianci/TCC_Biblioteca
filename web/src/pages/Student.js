@@ -14,7 +14,8 @@ import {
     Input,
     Table,
     Label,
-    CardBody
+    CardBody,
+    Spinner
 } from 'reactstrap';
 
 import api from "../services/api";
@@ -51,82 +52,88 @@ export default function Student() {
         setStudent([...student, response.data])
     }
 
+    async function handleDelete() {
+        setLoad(true)
+        const id = localStorage.getItem('_id')
+        await api.delete(`/register/${id}`, {
+            student
+        }).catch(e => {
+            setLoad(false)
+            alert(e.response.data.error)
+        })
+        console.log()
+    }
+
 
     return (
         <div>
             <NavBar />
-            <Row>
-                <Col lg="2">
-                    <Sidebar />
+            <Row className="mt-4 mb-5 ml-4 d-flex justify-content-center">
+                <Col lg="3">
+                    <Card>
+                        <CardBody>
+                            <Form>
+                                <FormGroup>
+                                    <Label for="exampleEmail">User</Label>
+                                    <Input
+                                        type="text"
+                                        name="text"
+                                        value={user}
+                                        onChange={event => setUser(event.target.value)}
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="exampleEmail">Email</Label>
+                                    <Input
+                                        type="email"
+                                        name="email"
+                                        value={email}
+                                        onChange={event => setEmail(event.target.value)}
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="examplePassword">Password</Label>
+                                    <Input
+                                        type="password"
+                                        name="password"
+                                        value={password}
+                                        onChange={event => setPassword(event.target.value)}
+                                    />
+                                </FormGroup>
+                                <div className="text-center">
+                                    {load == false ? (
+                                        <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
+                                    ) : (
+                                            <Button color="primary" onClick={handleRegister}>
+                                            <Spinner color="light" /></Button>
+                                        )}
+                                </div>
+                            </Form>
+                        </CardBody>
+                    </Card>
                 </Col>
-                <Col lg="9" className="mb-5 ml-5">
-                    <Row className="mt-3">
-                        <Col lg="4">
-                            <Card>
-                                <CardBody>
-                                    <Form>
-                                        <FormGroup>
-                                            <Label for="exampleEmail">User</Label>
-                                            <Input
-                                                type="text"
-                                                name="text"
-                                                value={user}
-                                                onChange={event => setUser(event.target.value)}
-                                            />
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="exampleEmail">Email</Label>
-                                            <Input
-                                                type="email"
-                                                name="email"
-                                                value={email}
-                                                onChange={event => setEmail(event.target.value)}
-                                            />
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="examplePassword">Password</Label>
-                                            <Input
-                                                type="password"
-                                                name="password"
-                                                value={password}
-                                                onChange={event => setPassword(event.target.value)}
-                                            />
-                                        </FormGroup>
-                                        <div className="text-center">
-                                        {load == false ? (
-                                            <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
-                                        ) : (
-                                                <Button color="secundary" onClick={handleRegister}>Cadastrar</Button>
-                                            )}
-                                            </div>
-                                    </Form>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                        <Col lg="8">
-                            <Table bordered className="" style={{ width: '100%' }}>
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Editar</th>
-                                        <th>Deletar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {student.map(a => (
-                                        <tr key={a._id}>
-                                            <th scope="row">{a.user}</th>
-                                            <td>{a.email}</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                    ))}
+                <Col lg="8">
+                    <Table bordered className="" style={{ width: '100%' }}>
+                        <thead>
+                            <tr>
+                                <th className="text-center">User</th>
+                                <th>Email</th>
+                                <th className="text-center">Editar</th>
+                                <th className="text-center">Deletar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {student.map(a => (
+                                <tr key={a._id}>
+                                    <th className="text-center" scope="row">{a.user}</th>
+                                    <td>{a.email}</td>
+                                    <td className="text-center">atualizar</td>
+                                    <td onClick={handleDelete} className="text-center" style={{cursor:'pointer'}}>Deletar</td>
+                                </tr>
+                            ))}
 
-                                </tbody>
-                            </Table>
-                        </Col>
-                    </Row>
+                        </tbody>
+                    </Table>
                 </Col>
             </Row>
             <FooterPage />

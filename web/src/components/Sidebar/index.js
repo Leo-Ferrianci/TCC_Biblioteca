@@ -3,7 +3,7 @@ import {
     Card
 } from 'reactstrap';
 
-import './styles.css'
+import '../../assets/css/styles.css'
 
 export default function Sidebar() {
     return (
@@ -39,8 +39,6 @@ export default function Sidebar() {
                 <button className="button">
                     danger
                 </button>
-                
-
             </Card>
         </>
     )

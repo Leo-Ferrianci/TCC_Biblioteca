@@ -22,7 +22,6 @@ routes.post("/register", UserController.store);
 routes.put("/register/:_id", UserController.update);
 routes.delete("/register/:_id", UserController.delete);
 
-
 routes.post("/authenticate", SessionController.create);
 
 routes.get("/course", CourseController.index);

@@ -13,7 +13,8 @@ import {
     Input,
     Table,
     Label,
-    CardBody
+    CardBody,
+    FormText
 } from 'reactstrap';
 
 import api from "../services/api";
@@ -60,7 +61,7 @@ export default function Student() {
                                 <CardBody>
                                     <Form>
                                         <FormGroup>
-                                            <Label for="exampleEmail">User</Label>
+                                            <Label for="exampleEmail">Nome do Curso</Label>
                                             <Input
                                                 type="text"
                                                 name="text"
@@ -69,21 +70,24 @@ export default function Student() {
                                             />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Label for="exampleEmail">Email</Label>
-                                            <Input
-                                                type="email"
-                                                name="email"
-                                                value={image}
-                                                onChange={event => setImage(event.target.value)}
-                                            />
+                                            <FormGroup>
+                                                <Label for="exampleFile">Imagem da capa</Label>
+                                                <Input
+                                                    type="file"
+                                                    name="file"
+                                                    id="exampleFile"
+                                                    value={image}
+                                                    onChange={event => setImage(event.target.value)}
+                                                />
+                                            </FormGroup>
                                         </FormGroup>
                                         <div className="text-center">
-                                        {load == false ? (
-                                            <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
-                                        ) : (
-                                                <Button color="secundary" onClick={handleRegister}>Cadastrar</Button>
-                                            )}
-                                            </div>
+                                            {load == false ? (
+                                                <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
+                                            ) : (
+                                                    <Button color="secundary" onClick={handleRegister}>Cadastrar</Button>
+                                                )}
+                                        </div>
                                     </Form>
                                 </CardBody>
                             </Card>

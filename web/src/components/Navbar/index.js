@@ -18,6 +18,7 @@ import {
 
 import api from "../../services/api";
 
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState('')
@@ -79,6 +80,7 @@ export default function NavBar() {
           Biblioteca Virtual de TCC
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
           <NavItem>
             <NavLink href="https://www.cps.sp.gov.br" style={{ color: '#fff' }}>CPS</NavLink>
@@ -109,6 +111,7 @@ export default function NavBar() {
               </>
             )}
         </Nav>
+        </Collapse>
       </Navbar>
     </>
 

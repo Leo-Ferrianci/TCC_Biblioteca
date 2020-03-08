@@ -51,7 +51,7 @@ export default function Home() {
                             />
                         </FormGroup>
                         <Button style={{
-                            marginTop: 30,
+                            marginTop: 14,
                             borderLeft:0,
                             backgroundColor:'#8b0000'
 
@@ -62,7 +62,7 @@ export default function Home() {
 
                     </Form>
                     {course.map(a => (
-                        <Card key={a._id} style={{
+                        <Card key={a._id} className="text-center" style={{
 
                             marginTop: 50,
                             borderColor: '#8b0000',
