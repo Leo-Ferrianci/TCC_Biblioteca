@@ -1,4 +1,5 @@
 const Project = require('../models/Project');
+const Course = require('../models/Course');
 
 module.exports = {
     async index(req, res){
@@ -16,18 +17,25 @@ module.exports = {
     },
 
     async store(req,res) {
+        const {course_id} = req.params;
+
         const {
             name,
             student,
-            pdf
+            pdf,
+            year,
         } = req.body;
+
+        const course = await Course.findById(course_id);
 
         const studentArray = student.split(',').map(student => student.trim())
 
         const data = await Project.create({
             name,
             student: studentArray,
-            pdf
+            pdf,
+            year,
+            course: course_id
         });
 
         return res.json(data);

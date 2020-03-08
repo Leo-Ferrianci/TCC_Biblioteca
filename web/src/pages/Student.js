@@ -54,14 +54,13 @@ export default function Student() {
 
     async function handleDelete() {
         setLoad(true)
-        const id = localStorage.getItem('_id')
+        const id = localStorage.getItem('id')
         await api.delete(`/register/${id}`, {
             student
         }).catch(e => {
             setLoad(false)
             alert(e.response.data.error)
         })
-        console.log()
     }
 
 

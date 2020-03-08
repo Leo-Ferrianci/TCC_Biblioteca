@@ -32,7 +32,7 @@ routes.delete("/course/:_id", CourseController.delete);
 
 routes.get("/project", ProjectController.index);
 routes.get("/project/:_id", ProjectController.show);
-routes.post("/project", ProjectController.store);
+routes.post("/project/:course_id", ProjectController.store);
 routes.put("/project/:_id", ProjectController.update);
 routes.delete("/project/:_id", ProjectController.delete);
 

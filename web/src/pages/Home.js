@@ -16,7 +16,7 @@ import {
 
 import api from "../services/api";
 
-export default function Home() {
+export default function Home( history ) {
     const [course, setCourse] = useState([])
     const [name, setName] = useState([])
 
@@ -28,6 +28,11 @@ export default function Home() {
         loadCourse();
     }, []);
 
+    async function handleProject(project) {
+        history.push(`/auth/course/${project}`)
+
+        localStorage.setItem('project_id', project);
+    }
 
     return (
         <div>
@@ -43,7 +48,7 @@ export default function Home() {
                                 placeholder="Procurar por Curso"
                                 style={{
                                     width: '100%',
-                                    marginTop: 30,
+                                    marginTop: 20,
                                     borderColor: '#8b0000',
                                     borderRight:0
 
@@ -51,7 +56,7 @@ export default function Home() {
                             />
                         </FormGroup>
                         <Button style={{
-                            marginTop: 14,
+                            marginTop: 20,
                             borderLeft:0,
                             backgroundColor:'#8b0000'
 
@@ -86,7 +91,7 @@ export default function Home() {
                                         <span style={{ fontSize: 30 }}>{a.name}</span>
                                     </Col>
                                     <Col lg="2" className="d-flex align-items-center justify-content-center">
-                                        <a href="/course">
+                                        <a  onClick={() => handleProject(a.project)}>
                                             <Button
 
                                                 style={{
