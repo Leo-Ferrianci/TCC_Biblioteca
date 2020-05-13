@@ -6,6 +6,7 @@ import {
     FormControl,
     Col,
     Row,
+    Container
 
 } from 'reactstrap';
 
@@ -15,8 +16,9 @@ export default function FooterHome() {
             <footer
                 style={{ backgroundColor: "#8b0000" }}
                 className="py-2 footer"
-          id="footer-main"
+                id="footer-main"
             >
+                <Container>
                 <Row>
                     <Col>
                         <div>
@@ -38,10 +40,9 @@ export default function FooterHome() {
                     <Col>
                         <i className="fab fa-facebook-square"></i>
                         <i className="fab fa-twitter-square"></i>
-
                     </Col>
-
-                </Row>
+                    </Row>
+                    </Container>
             </footer>
         </>
 

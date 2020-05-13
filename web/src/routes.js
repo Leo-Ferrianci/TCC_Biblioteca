@@ -2,7 +2,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
 } from "react-router-dom";
 
 import Home from './pages/Home'
@@ -18,19 +18,19 @@ export default function BasicExample() {
         <Route exact path="/">
           <Login />
         </Route>
-        <Route path="/home">
+        <Route exact path="/home">
           <Home />
         </Route>
         <Route path="/auth/course/:id">
           <Course />
         </Route>
-        <Route path="/admin/create">
+        <Route exact path="/admin/create">
           <Create />
         </Route>
-        <Route path="/login">
+        <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/admin/student">
+        <Route exact path="/admin/student">
           <Student />
         </Route>
       </Switch>

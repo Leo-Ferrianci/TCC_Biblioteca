@@ -18,12 +18,12 @@ module.exports = {
     async store(req, res) {
         const {
             name,
-            image
+            image,
         } = req.body;
 
         const data = await Course.create({
             name,
-            image
+            image,
         });
 
         return res.json(data);
@@ -34,12 +34,12 @@ module.exports = {
 
         const {
             name,
-            image
+            image,
         } = req.body;
 
         const data = await Course.findByIdAndUpdate(_id, {
             name,
-            image
+            image,
         });
 
         return res.json(data);

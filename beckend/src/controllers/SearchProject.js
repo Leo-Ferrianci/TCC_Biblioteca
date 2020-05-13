@@ -5,14 +5,12 @@ const Project = require('../models/Project');[]
 
 module.exports = {
     async listProject(req, res) {
-      const { name, student, pdf } = req.query;
+      const { course } = req.query;
   
       const data = await Project.find({ 
-          student,
+          course
         });
 
-        
-  
       return res.json(data);
     },
   }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/Navbar/index'
 import FooterPage from '../components/Footer/index';
-import Sidebar from '../components/Sidebar'
 import administracao from '../assets/img/book.png';
 import {
     Col,
@@ -11,21 +10,42 @@ import {
     Button,
     Form,
     FormGroup,
-    Input
+    Input,
+    Container,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Table
 } from 'reactstrap';
+
+import { Link } from 'react-router-dom';
 
 import api from "../services/api";
 
-export default function Home( history ) {
-    const [course, setCourse] = useState([])
-    const [name, setName] = useState([])
+export default function Home() {
+    const [course, setCourse] = useState([]);
+    const [project, setProject] = useState([]);
+    const [modal, setModal] = useState(false);
+    const [teste, setTeste] = useState('');
+
+    const toggle = () => setModal(!modal);
 
     useEffect(() => {
         async function loadCourse() {
-            const response = await api.get('/course');
+            const response = await api.get(`/course`);
             setCourse(response.data);
         }
         loadCourse();
+    }, []);
+
+
+    useEffect(() => {
+        async function loadProject() {
+            const response = await api.get(`/project`);
+            setProject(response.data);
+        }
+        loadProject();
     }, []);
 
     async function handleProject(project) {
@@ -34,14 +54,21 @@ export default function Home( history ) {
         localStorage.setItem('project_id', project);
     }
 
+    // useEffect(() => {
+    //     async function loadProject() {
+    //       const response = await api.get(`/list_project?course=${teste}`).catch(e => {
+    //         console.log('Falha na conexão')
+    //       });
+    //       setProject(response.data);
+    //     }
+    //     loadProject();
+    //   }, []);
+
     return (
-        <div>
+        <>
             <NavBar />
-            <Row>
-                <Col lg="2">
-                    <Sidebar />
-                </Col>
-                <Col lg="9" className="mb-5 ml-5">
+            <Container className=" justify-content-center align-items-center">
+                <Row>
                     <Form inline>
                         <FormGroup>
                             <Input
@@ -50,28 +77,27 @@ export default function Home( history ) {
                                     width: '100%',
                                     marginTop: 20,
                                     borderColor: '#8b0000',
-                                    borderRight:0
-
+                                    borderRight: 0
                                 }}
                             />
                         </FormGroup>
                         <Button style={{
                             marginTop: 20,
-                            borderLeft:0,
-                            backgroundColor:'#8b0000'
-
+                            borderLeft: 0,
+                            backgroundColor: '#8b0000'
                         }}
                         >
                             Procurar
                         </Button>
-
                     </Form>
-                    {course.map(a => (
-                        <Card key={a._id} className="text-center" style={{
+                </Row>
 
+
+                {course.map(a => (
+                    <>
+                        <Card key={a._id} className="text-center" style={{
                             marginTop: 50,
                             borderColor: '#8b0000',
-                            width: '90%',
                             backgroundColor: '#fff',
                         }}
                         >
@@ -91,28 +117,60 @@ export default function Home( history ) {
                                         <span style={{ fontSize: 30 }}>{a.name}</span>
                                     </Col>
                                     <Col lg="2" className="d-flex align-items-center justify-content-center">
-                                        <a  onClick={() => handleProject(a.project)}>
-                                            <Button
 
-                                                style={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    backgroundColor: '#8b0000',
-                                                    fontSize: 20
-                                                }}
-                                            >
-                                                Acervo
+                                        <Button
+                                            onClick={toggle}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                backgroundColor: '#8b0000',
+                                                fontSize: 20
+                                            }}
+                                        >
+                                            Acervo
                                         </Button>
-                                        </a>
                                     </Col>
                                 </Row>
                             </CardHeader>
                         </Card>
-                    ))}
-                </Col>
-            </Row>
+                    </>
+                ))}
+            </Container>
             <FooterPage />
-        </div>
-    );
+            <Modal isOpen={modal} toggle={toggle} size="xl">
+                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                <ModalBody>
+                    <Table bordered style={{ width: '90%' }}>
+                        <thead style={{ alignItems: 'center' }}>
+                            <tr>
+                                <th>TCC</th>
+                                <th>Estudantes</th>
+                                <th className="text-center">Ano </th>
+                                <th className="text-center">Arquivo pdf</th>
+                            </tr>
+                        </thead>
+                        {project.map(e => (
+                            <tbody key={e._id}>
+                                <tr className="align-items-center">
+                                    <th scope="row">{e.name}</th>
+                                    <td>{e.student.join(', ')}</td>
+                                    <td className="text-center">{e.year}</td>
+                                    <td className="text-center">
+                                        <span style={{ cursor: 'pointer' }}>
+                                            Download
+                                             </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        ))}
+                    </Table>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={toggle}>Do Something</Button>
+                    <Button color="secondary" onClick={toggle}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+        </>
 
+    );
 }

@@ -30,6 +30,26 @@ export default function NavBar() {
     window.location.replace('/login')
   }
 
+  // useEffect(() => {
+  //   async function getUserName() {
+  //     const _id = localStorage.getItem('_id')
+
+  //     if (_id) {
+  //       const response = await api.get(`/register/${_id}`).catch(e => {
+
+  //       });
+  //       setUser(response.data.user)
+  //       setController(response.data.controller)
+  //       console.log(response.data.controller)
+  //     } else {
+
+  //     }
+
+  //   }
+  //   getUserName()
+
+  // }, [])
+
   useEffect(() => {
     async function getUserName() {
       const _id = localStorage.getItem('_id')

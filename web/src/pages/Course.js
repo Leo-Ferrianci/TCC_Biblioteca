@@ -1,73 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../components/Navbar/index'
 import FooterPage from '../components/Footer/index';
-import Sidebar from '../components/Sidebar'
-import administracao from '../assets/img/book.png';
+import { get } from 'lodash';
+import PropTypes from 'prop-types';
 import {
-  Col,
-  Row,
   Table,
   Form,
   FormGroup,
-  Label,
   Input
 } from 'reactstrap';
+import api from "../services/api";
 
-export default function Home() {
+export default function Course() {
+  const [course, setCourse] = useState([])
+  const [project, setProject] = useState([])
+
+  useEffect(() => {
+    async function loadCourse() {
+        const response = await api.get(`/course`);
+        setCourse(response.data.name);
+    }
+    loadCourse();
+}, []);
+
+
+  useEffect(() => {
+    async function loadProject() {
+      const _id = localStorage.getItem('_id')
+      const response = await api.get(`/list_project?course=${_id}`).catch(e => {
+        console.log('Falha na conexão')
+      });
+      setProject(response.data);
+    }
+    loadProject();
+  }, []);
+
   return (
     <div>
       <NavBar />
-      <Row >
-        <Col lg="3">
-          <Sidebar />
-        </Col>
-        <Col lg="9">
           <Form>
             <FormGroup>
               <Input
                 type="text"
                 name="text"
                 placeholder="Search"
-                required
-                style={{width:'30%', marginTop:20}}
+                style={{ width: '30%', marginTop: 20 }}
               />
             </FormGroup>
-            <Table striped>
-              <thead>
+
+            <Table bordered style={{ width: '90%' }}>
+              <thead style={{ alignItems: 'center' }}>
                 <tr>
-                  <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>TCC</th>
+                  <th>Estudantes</th>
+                  <th className="text-center">Ano </th>
+                  <th className="text-center">Arquivo pdf</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
+              {project.map(a => (
+                <tbody>
+                  <tr className="align-items-center">
+                    <th scope="row">{a.name}</th>
+                    <td>{a.student.join(', ')}</td>
+                    <td className="text-center">{a.year}</td>
+                    <td className="text-center">
+                      <span style={{ cursor: 'pointer' }}>
+                        Download
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
             </Table>
           </Form>
-
-        </Col>
-      </Row>
       <FooterPage />
     </div>
   );
 
+}
+
+Course.propTypes = {
+  match: PropTypes.shape({}).isRequired,
 }

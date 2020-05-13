@@ -39,13 +39,11 @@ export default function Student() {
             name,
             image,
         })
-
         setLoad(false)
         setName('');
         setImage('');
         setCourse([...course, response.data])
     }
-
 
     return (
         <div>
