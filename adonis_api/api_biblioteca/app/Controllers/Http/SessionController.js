@@ -1,7 +1,7 @@
 'use strict'
+const User = use("App/Models/User")
 
 class SessionController {
-
   async create({ request, auth }) {
     const { email, password } = request.all()
 
@@ -11,7 +11,6 @@ class SessionController {
 
     return { token, user }
   }
-
 }
 
 module.exports = SessionController

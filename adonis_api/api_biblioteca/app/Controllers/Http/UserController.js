@@ -1,8 +1,11 @@
 'use strict'
 
+const Database = use('Database')
+const User = use("App/Models/User")
+
 class UserController {
   async store({ request }) {
-    const { data } = request.only([
+    const data = request.only([
       "username",
       "email",
       "password",
@@ -66,8 +69,6 @@ class UserController {
     await user.delete();
     return 'usuário deletado com sucesso'
   }
-}
-
 }
 
 module.exports = UserController

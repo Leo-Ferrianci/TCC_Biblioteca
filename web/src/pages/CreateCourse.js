@@ -21,13 +21,13 @@ import api from "../services/api";
 
 export default function Student() {
     const [course, setCourse] = useState([])
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [image, setImage] = useState('')
     const [load, setLoad] = useState(false)
 
     useEffect(() => {
         async function loadCourse() {
-            const response = await api.get('/course');
+            const response = await api.get('/courses');
             setCourse(response.data);
         }
         loadCourse();
@@ -35,23 +35,26 @@ export default function Student() {
 
     async function handleRegister(e) {
         setLoad(true)
-        const response = await api.post('/course', {
-            name,
-            image,
+        const response = await api.post('/courses', {
+            username,
         })
         setLoad(false)
-        setName('');
+        setUsername('');
         setImage('');
         setCourse([...course, response.data])
     }
+
+    async function handleDelete(a) {
+        await api.delete(`/courses/${a}`).catch(e => {
+          alert('Erro ao deletar anúncio.')
+        });
+        window.location.reload()
+      }
 
     return (
         <div>
             <NavBar />
             <Row>
-                <Col lg="2">
-                    <Sidebar />
-                </Col>
                 <Col lg="9" className="mb-5 ml-5">
                     <Row className="mt-3">
                         <Col lg="4">
@@ -63,11 +66,11 @@ export default function Student() {
                                             <Input
                                                 type="text"
                                                 name="text"
-                                                value={name}
-                                                onChange={event => setName(event.target.value)}
+                                                value={username}
+                                                onChange={event => setUsername(event.target.value)}
                                             />
                                         </FormGroup>
-                                        <FormGroup>
+                                        {/* <FormGroup>
                                             <FormGroup>
                                                 <Label for="exampleFile">Imagem da capa</Label>
                                                 <Input
@@ -78,7 +81,7 @@ export default function Student() {
                                                     onChange={event => setImage(event.target.value)}
                                                 />
                                             </FormGroup>
-                                        </FormGroup>
+                                        </FormGroup> */}
                                         <div className="text-center">
                                             {load == false ? (
                                                 <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
@@ -102,12 +105,11 @@ export default function Student() {
                                 <tbody>
                                     {course.map(a => (
                                         <tr key={a._id}>
-                                            <th scope="row">{a.name}</th>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <th scope="row">{a.username}</th>
+                                            <td>Atualizar</td>
+                                            <td onClick={() => handleDelete(a.id)}  >Excluir</td>
                                         </tr>
                                     ))}
-
                                 </tbody>
                             </Table>
                         </Col>

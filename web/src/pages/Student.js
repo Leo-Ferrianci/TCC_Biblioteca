@@ -18,11 +18,12 @@ import {
     Spinner
 } from 'reactstrap';
 
+import "../assets/css/styles.css";
 import api from "../services/api";
 
 export default function Student() {
     const [student, setStudent] = useState([])
-    const [user, setUser] = useState('')
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [controller, setController] = useState('')
@@ -30,7 +31,7 @@ export default function Student() {
 
     useEffect(() => {
         async function loadStudent() {
-            const response = await api.get('/register');
+            const response = await api.get('/users');
             setStudent(response.data);
         }
         loadStudent();
@@ -38,30 +39,26 @@ export default function Student() {
 
     async function handleRegister(e) {
         setLoad(true)
-        const response = await api.post('/register', {
-            user,
+        const response = await api.post('/users', {
+            username,
             email,
             password,
             controller: 0
         })
 
         setLoad(false)
-        setUser('');
+        setUsername('');
         setEmail('');
         setPassword('');
         setStudent([...student, response.data])
     }
 
-    async function handleDelete() {
-        setLoad(true)
-        const id = localStorage.getItem('id')
-        await api.delete(`/register/${id}`, {
-            student
-        }).catch(e => {
-            setLoad(false)
-            alert(e.response.data.error)
-        })
-    }
+    async function handleDelete(a) {
+        await api.delete(`/users/${a}`).catch(e => {
+          alert('Erro ao deletar anúncio.')
+        });
+        window.location.reload()
+      }
 
 
     return (
@@ -77,8 +74,8 @@ export default function Student() {
                                     <Input
                                         type="text"
                                         name="text"
-                                        value={user}
-                                        onChange={event => setUser(event.target.value)}
+                                        value={username}
+                                        onChange={event => setUsername(event.target.value)}
                                     />
                                 </FormGroup>
                                 <FormGroup>
@@ -101,7 +98,7 @@ export default function Student() {
                                 </FormGroup>
                                 <div className="text-center">
                                     {load == false ? (
-                                        <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
+                                        <button className="button1" onClick={handleRegister}>Cadastrar</button>
                                     ) : (
                                             <Button color="primary" onClick={handleRegister}>
                                             <Spinner color="light" /></Button>
@@ -124,10 +121,10 @@ export default function Student() {
                         <tbody>
                             {student.map(a => (
                                 <tr key={a._id}>
-                                    <th className="text-center" scope="row">{a.user}</th>
+                                    <th className="text-center" scope="row">{a.username}</th>
                                     <td>{a.email}</td>
                                     <td className="text-center">atualizar</td>
-                                    <td onClick={handleDelete} className="text-center" style={{cursor:'pointer'}}>Deletar</td>
+                                    <td onClick={() => handleDelete(a.id)} className="text-center" style={{cursor:'pointer'}}>Deletar</td>
                                 </tr>
                             ))}
 

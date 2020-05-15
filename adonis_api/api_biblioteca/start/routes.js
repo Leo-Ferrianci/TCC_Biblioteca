@@ -14,8 +14,6 @@ Route.get('/users', 'UserController.index')
 Route.get('/users/:id', 'UserController.show')
 
 Route.post('/users', 'UserController.store')
-  .validator('register')
-  .middleware('auth')
 
 Route.put('/users/:id', 'UserController.update')
   .middleware('auth')
@@ -25,4 +23,18 @@ Route.delete('/users/:id', 'UserController.destroy')
   .middleware('auth')
 
 Route.post('/sessions', 'SessionController.create')
-  .validator('login')
+
+//Rotas do Curso
+
+Route.get('/courses', 'CourseController.index')
+
+Route.get('/courses/:id', 'CourseController.show')
+
+Route.post('/courses', 'CourseController.store')
+.middleware('auth')
+
+Route.put('/courses/:id', 'CourseController.update')
+  .middleware('auth')
+
+Route.delete('/courses/:id', 'CourseController.destroy')
+  .middleware('auth')

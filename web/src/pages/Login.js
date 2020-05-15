@@ -13,6 +13,8 @@ import {
     Button,
 } from 'reactstrap';
 
+import { get } from 'lodash'
+
 
 import api from '../services/api'
 
@@ -20,23 +22,58 @@ export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [load, setLoad] = useState(false)
+    const [validationPassword, setvalidationPassword] = useState(false)
+    const [validationEmail, setvalidationEmail] = useState(false)
+    const [message, setMessage] = useState('')
 
     async function handleLogin() {
         setLoad(true)
-        const response = await api.post(`authenticate`, {
-            email, password
-        }).catch(e => {
-            alert('Falha ao fazer o Login')
-        });
-
-        if (response.data) {
-            console.log()
-            localStorage.setItem('_id', response.data.user._id)
-            localStorage.setItem('token', response.data.token)
+        try {
+          let response = await api.post(`/sessions`, { email, password })
+          if (response.data) {
+            localStorage.setItem('auth_id', response.data.user.id)
+            localStorage.setItem('token', response.data.token.token)
             setTimeout(() => setLoad(false), 3000)
             window.location.replace(`/home`)
+          }
+        } catch (err) {
+            console.log(err)
+            setLoad(false)
+        //   setLoad(false)
+        //   const errors = get(e, 'response.data.0.message', [])
+        //   const field = get(e, 'response.data.0.field', [])
+        //   const validation = get(e, 'response.data.0.validation')
+        //   console.log(errors)
+        //   console.log(field)
+        //   console.log(validation)
+
+        //   if (validation === undefined) {
+        //     setMessage('Email ou senha inseridos são invalidos!')
+        //     setvalidationEmail(true)
+        //     return
+        //   } else {
+        //     setvalidationEmail(false)
+        //   }
+
+        //   if (field === 'email' || field === 'password') {
+
+        //     if (field === 'email') {
+        //       setMessage(errors)
+        //       setvalidationEmail(true)
+        //     } else {
+        //       setvalidationEmail(false)
+        //     }
+
+        //     if (field === 'password') {
+        //       setMessage(errors)
+        //       setvalidationPassword(true)
+        //     } else {
+        //       setvalidationPassword(false)
+        //     }
+
+        //   }
         }
-    }
+      }
 
     return (
         <>
@@ -65,7 +102,6 @@ export default function Login() {
                                     id="exampleEmail"
                                     value={email}
                                     onChange={event => setEmail(event.target.value)}
-                                    required
                                 />
                             </FormGroup>
                             <FormGroup required>
@@ -74,7 +110,6 @@ export default function Login() {
                                     type="password"
                                     name="password"
                                     id="examplePassword"
-                                    required
                                     value={password}
                                     onChange={event => setPassword(event.target.value)}
                                 />

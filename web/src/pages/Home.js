@@ -19,6 +19,8 @@ import {
     Table
 } from 'reactstrap';
 
+import "../assets/css/styles.css";
+
 import { Link } from 'react-router-dom';
 
 import api from "../services/api";
@@ -33,7 +35,7 @@ export default function Home() {
 
     useEffect(() => {
         async function loadCourse() {
-            const response = await api.get(`/course`);
+            const response = await api.get(`/courses`);
             setCourse(response.data);
         }
         loadCourse();
@@ -48,11 +50,11 @@ export default function Home() {
         loadProject();
     }, []);
 
-    async function handleProject(project) {
-        history.push(`/auth/course/${project}`)
+    // async function handleProject(project) {
+    //     history.push(`/auth/course/${project}`)
 
-        localStorage.setItem('project_id', project);
-    }
+    //     localStorage.setItem('project_id', project);
+    // }
 
     // useEffect(() => {
     //     async function loadProject() {
@@ -67,7 +69,7 @@ export default function Home() {
     return (
         <>
             <NavBar />
-            <Container className=" justify-content-center align-items-center">
+            <Container className=" justify-content-center align-items-center" style={{ minHeight:500 }}>
                 <Row>
                     <Form inline>
                         <FormGroup>
@@ -114,21 +116,13 @@ export default function Home() {
                                         />
                                     </Col>
                                     <Col lg="8" className="d-flex align-items-center justify-content-center">
-                                        <span style={{ fontSize: 30 }}>{a.name}</span>
+                                        <span style={{ fontSize: 30 }}>{a.username}</span>
                                     </Col>
                                     <Col lg="2" className="d-flex align-items-center justify-content-center">
 
-                                        <Button
-                                            onClick={toggle}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                backgroundColor: '#8b0000',
-                                                fontSize: 20
-                                            }}
-                                        >
+                                        <button onClick={toggle} className="button1"   >
                                             Acervo
-                                        </Button>
+                                        </button>
                                     </Col>
                                 </Row>
                             </CardHeader>

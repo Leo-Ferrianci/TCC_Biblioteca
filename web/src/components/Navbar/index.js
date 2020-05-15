@@ -25,6 +25,9 @@ export default function NavBar() {
   const [controller, setController] = useState('')
   const toggle = () => setIsOpen(!isOpen);
 
+
+  const [token, setToken] = useState('');
+
   async function logout() {
     localStorage.clear();
     window.location.replace('/login')
@@ -51,14 +54,15 @@ export default function NavBar() {
   // }, [])
 
   useEffect(() => {
+
+    setToken(localStorage.getItem('token'))
+
     async function getUserName() {
-      const _id = localStorage.getItem('_id')
+      const auth_id = localStorage.getItem('auth_id')
 
-      if (_id) {
-        const response = await api.get(`/register/${_id}`).catch(e => {
-
-        });
-        setUser(response.data.user)
+      if (auth_id) {
+        const response = await api.get(`/users/${auth_id}`).catch(e => { });
+        setUser(response.data.username)
         setController(response.data.controller)
       } else {
 
@@ -106,7 +110,7 @@ export default function NavBar() {
             <NavLink href="https://www.cps.sp.gov.br" style={{ color: '#fff' }}>CPS</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="" style={{ color: '#fff' }}>NSA</NavLink>
+            <NavLink href="https://nsa.cps.sp.gov.br" style={{ color: '#fff' }}>NSA</NavLink>
           </NavItem>
         </Nav>
         <Nav navbar>
