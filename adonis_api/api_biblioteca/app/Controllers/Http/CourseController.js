@@ -19,15 +19,20 @@ class CourseController {
 
     const course = Course
       .query()
+      .with('projects')
       .fetch()
     return courses, course
   }
 
 
   async show({ params }) {
-    const course = await Course.findOrFail(params.id)
 
-    return course
+    const course = Course
+      .query()
+      .with('projects')
+      .where('id',  params.id)
+      .fetch()
+    return  course
   }
 
   async update({ params, request, response }) {

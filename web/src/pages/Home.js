@@ -50,6 +50,12 @@ export default function Home() {
         loadProject();
     }, []);
 
+    async function getProject(a) {
+        const response = await api.get(`/projects/${a}`);
+        setModal(true)
+        setProject(response.data);
+    }
+
     // async function handleProject(project) {
     //     history.push(`/auth/course/${project}`)
 
@@ -120,7 +126,7 @@ export default function Home() {
                                     </Col>
                                     <Col lg="2" className="d-flex align-items-center justify-content-center">
 
-                                        <button onClick={toggle} className="button1"   >
+                                        <button onClick={() => getProject(a.id)} className="button1"   >
                                             Acervo
                                         </button>
                                     </Col>
@@ -131,6 +137,8 @@ export default function Home() {
                 ))}
             </Container>
             <FooterPage />
+
+
             <Modal isOpen={modal} toggle={toggle} size="xl">
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                 <ModalBody>
@@ -143,12 +151,12 @@ export default function Home() {
                                 <th className="text-center">Arquivo pdf</th>
                             </tr>
                         </thead>
-                        {project.map(e => (
-                            <tbody key={e._id}>
+                        {project.map(project => (
+                            <tbody key={project.id}>
                                 <tr className="align-items-center">
-                                    <th scope="row">{e.name}</th>
-                                    <td>{e.student.join(', ')}</td>
-                                    <td className="text-center">{e.year}</td>
+                                    <th scope="row">{project.username}</th>
+                                    <td>{project.student}</td>
+                                    <td className="text-center">{project.year}</td>
                                     <td className="text-center">
                                         <span style={{ cursor: 'pointer' }}>
                                             Download
@@ -164,7 +172,6 @@ export default function Home() {
                     <Button color="secondary" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>
-        </>
-
+            </>
     );
 }

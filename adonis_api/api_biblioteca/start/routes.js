@@ -43,5 +43,13 @@ Route.delete('/courses/:id', 'CourseController.destroy')
 
   Route.get('/projects', 'ProjectController.index')
 
+  Route.get('/projects/:id', 'ProjectController.show')
+
   Route.post('/projects/:id', 'ProjectController.store')
 // .middleware('auth')
+
+Route.put('/projects/:id', 'ProjectController.update')
+  .middleware('auth')
+
+Route.delete('/projects/:id', 'ProjectController.destroy')
+  .middleware('auth')
