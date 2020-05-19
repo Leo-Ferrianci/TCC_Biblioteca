@@ -62,15 +62,15 @@ export default function Student() {
 
 
     return (
-        <div>
+        <>
             <NavBar />
-            <Row className="mt-4 mb-5 ml-4 d-flex justify-content-center">
+            <Row className="mt-4 mb-5 d-flex justify-content-center" style={{maxWidth:'100%'}}>
                 <Col lg="3">
                     <Card>
                         <CardBody>
                             <Form>
                                 <FormGroup>
-                                    <Label for="exampleEmail">User</Label>
+                                    <Label for="exampleEmail">Nome</Label>
                                     <Input
                                         type="text"
                                         name="text"
@@ -112,7 +112,7 @@ export default function Student() {
                     <Table bordered className="" style={{ width: '100%' }}>
                         <thead>
                             <tr>
-                                <th className="text-center">User</th>
+                                <th className="text-center">Nome</th>
                                 <th>Email</th>
                                 <th className="text-center">Editar</th>
                                 <th className="text-center">Deletar</th>
@@ -133,7 +133,7 @@ export default function Student() {
                 </Col>
             </Row>
             <FooterPage />
-        </div>
+            </>
     );
 
 }

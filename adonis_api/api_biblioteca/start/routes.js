@@ -31,10 +31,17 @@ Route.get('/courses', 'CourseController.index')
 Route.get('/courses/:id', 'CourseController.show')
 
 Route.post('/courses', 'CourseController.store')
-.middleware('auth')
+// .middleware('auth')
 
 Route.put('/courses/:id', 'CourseController.update')
   .middleware('auth')
 
 Route.delete('/courses/:id', 'CourseController.destroy')
   .middleware('auth')
+
+
+
+  Route.get('/projects', 'ProjectController.index')
+
+  Route.post('/projects/:id', 'ProjectController.store')
+// .middleware('auth')

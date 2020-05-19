@@ -107,7 +107,7 @@ export default function Student() {
                                         <tr key={a._id}>
                                             <th scope="row">{a.username}</th>
                                             <td>Atualizar</td>
-                                            <td onClick={() => handleDelete(a.id)}  >Excluir</td>
+                                            <td style={{cursor:'pointer'}} onClick={() => handleDelete(a.id)}  >Excluir</td>
                                         </tr>
                                     ))}
                                 </tbody>
