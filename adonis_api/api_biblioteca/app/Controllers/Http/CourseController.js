@@ -38,8 +38,8 @@ class CourseController {
   async update({ params, request, response }) {
     const course = await Course.findOrFail(params.id)
 
-    const { data } = request.only([
-      "username"
+    const data  = request.only([
+      "cs_username"
     ])
 
     course.merge(data)

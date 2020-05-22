@@ -6,11 +6,17 @@ import {
 } from "react-router-dom";
 
 import Home from './pages/Home'
+
 import Course from './pages/Course'
 import Create from './pages/CreateCourse'
+import EditCourse from './pages/EditCourse'
+
 import Project from './pages/Project'
 import CreateProject from './pages/CreateProject'
+import EditProject from './pages/EditProject'
+
 import Login from './pages/Login'
+
 import Student from './pages/Student'
 
 export default function BasicExample() {
@@ -23,11 +29,15 @@ export default function BasicExample() {
         <Route exact path="/home">
           <Home />
         </Route>
+
         <Route path="/admin/course">
           <Course />
         </Route>
         <Route exact path="/admin/create">
           <Create />
+        </Route>
+        <Route exact path="/admin/editCourse/:id">
+          <EditCourse />
         </Route>
 
         <Route exact path="/admin/project/:id">
@@ -35,6 +45,9 @@ export default function BasicExample() {
         </Route>
         <Route exact path="/admin/createProject/:id">
           <CreateProject />
+        </Route>
+        <Route exact path="/admin/editProject/:id">
+          <EditProject />
         </Route>
 
 

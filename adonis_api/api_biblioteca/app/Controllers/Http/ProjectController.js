@@ -45,6 +45,22 @@ class ProjectController {
     return  project
   }
 
+  async update({ params, request }) {
+    const project = await Project.findOrFail(params.id)
+
+    const data  = request.only([
+      "pt_username",
+      "pt_students",
+      "pt_year"
+    ])
+
+    project.merge(data)
+
+    await project.save()
+
+    return project
+  }
+
   async destroy({ params }) {
     const project = await Project.findOrFail(params.id);
     await project.delete();

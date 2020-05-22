@@ -28,13 +28,13 @@ export default function Course({ history }) {
   // Variaveis Curso
   const [course, setCourse] = useState([])
 
-//Variaveis Project
+  //Variaveis Project
   const [project, setProject] = useState([])
   const [pt_username, setpt_username] = useState([])
   const [pt_students, setpt_students] = useState([])
   const [pt_year, setpt_year] = useState([])
 
-//Modal
+  //Modal
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -54,19 +54,17 @@ export default function Course({ history }) {
     window.location.reload()
   }
 
-  async function handleUpdate(a) {
-    setModal(true)
-    const response = await api.get(`/projects/${a}`).catch(e => {
-      alert('Erro ao buscar projetos.')
-    });
-    setProject(response.data)
-  }
-
   async function getProject(a) {
     window.location.replace(`/admin/project/${a}`)
 
     localStorage.setItem('course_id', a);
-}
+  }
+
+  async function getUpdate(a) {
+    window.location.replace(`/admin/editCourse/${a}`)
+
+    localStorage.setItem('course_id', a);
+  }
 
   return (
     <>
@@ -112,8 +110,8 @@ export default function Course({ history }) {
                   </span>
                 </td>
                 <td className="text-center">
-                  <span style={{ cursor: 'pointer' }} onClick={() => handleUpdate(a.id)}>
-                    editar
+                  <span style={{ cursor: 'pointer' }} onClick={() => getUpdate(a.id)}>
+                    Editar
                   </span>
                 </td>
                 <td className="text-center">
@@ -126,31 +124,8 @@ export default function Course({ history }) {
           ))}
         </Table>
       </Container>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Adicionar Trabalho de Conclusão de Curso</ModalHeader>
-        <ModalBody>
-          <FormGroup>
-            <Label for="exampleEmail">Nome do Curso</Label>
-            <Input
-              type="text"
-              name="text"
-              value={pt_username}
-              onChange={event => setpt_username(event.target.value)}
-            />
-          </FormGroup>
-
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
-      </Modal>
       <FooterPage />
     </>
   );
 
-}
-
-Course.propTypes = {
-  match: PropTypes.shape({}).isRequired,
 }

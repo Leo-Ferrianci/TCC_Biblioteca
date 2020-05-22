@@ -14,7 +14,8 @@ import {
     Table,
     Label,
     CardBody,
-    FormText
+    FormText,
+    Container
 } from 'reactstrap';
 
 import api from "../services/api";
@@ -52,25 +53,24 @@ export default function Student() {
     }
 
     return (
-        <div>
+        <>
             <NavBar />
-            <Row style={{ maxWidth: '100%', minHeight: 500 }}>
-                <Col lg="9" className="mb-5 ml-5">
-                    <Row className="mt-3">
-                        <Col lg="4">
-                            <Card>
-                                <CardBody>
-                                    <Form>
-                                        <FormGroup>
-                                            <Label for="exampleEmail">Nome do Curso</Label>
-                                            <Input
-                                                type="text"
-                                                name="text"
-                                                value={cs_username}
-                                                onChange={event => setcs_username(event.target.value)}
-                                            />
-                                        </FormGroup>
-                                        {/* <FormGroup>
+            <Container style={{minHeight:500}}>
+                <Row className="mt-4">
+                    <Col lg="4">
+                        <Card>
+                            <CardBody>
+                                <Form>
+                                    <FormGroup>
+                                        <Label for="exampleEmail">Nome do Curso</Label>
+                                        <Input
+                                            type="text"
+                                            name="text"
+                                            value={cs_username}
+                                            onChange={event => setcs_username(event.target.value)}
+                                        />
+                                    </FormGroup>
+                                    {/* <FormGroup>
                                             <FormGroup>
                                                 <Label for="exampleFile">Imagem da capa</Label>
                                                 <Input
@@ -82,44 +82,47 @@ export default function Student() {
                                                 />
                                             </FormGroup>
                                         </FormGroup> */}
-                                        <div className="text-center">
-                                            {load == false ? (
-                                                <Button color="primary" onClick={handleRegister}>Cadastrar</Button>
-                                            ) : (
-                                                    <Button color="secundary" onClick={handleRegister}>Cadastrar</Button>
-                                                )}
-                                        </div>
-                                    </Form>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                        <Col lg="8">
-                            <Table bordered className="" style={{ width: '100%' }}>
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Editar</th>
-                                        <th>Deletar</th>
-                                        <th>Adicionar TCC</th>
+                                    <div className="text-center">
+                                        {load == false ? (
+                                            <button className="button1" onClick={handleRegister}>
+                                                <span>
+                                                    Cadastrar
+                                                    </span>
+                                            </button>
+                                        ) : (
+                                                <button color="secundary" onClick={handleRegister}>Cadastrar</button>
+                                            )}
+                                    </div>
+                                </Form>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="8">
+                        <Table bordered className="" style={{ width: '100%' }}>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Editar</th>
+                                    <th>Deletar</th>
+                                    <th>Adicionar TCC</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-center">
+                                {course.map(a => (
+                                    <tr key={a._id}>
+                                        <th scope="row">{a.cs_username}</th>
+                                        <td>Atualizar</td>
+                                        <td style={{ cursor: 'pointer' }} onClick={() => handleDelete(a.id)}  >Excluir</td>
+                                        <td style={{ cursor: 'pointer' }} onClick={() => handleDelete(a.id)}  >Adicionar</td>
                                     </tr>
-                                </thead>
-                                <tbody className="text-center">
-                                    {course.map(a => (
-                                        <tr key={a._id}>
-                                            <th scope="row">{a.cs_username}</th>
-                                            <td>Atualizar</td>
-                                            <td style={{ cursor: 'pointer' }} onClick={() => handleDelete(a.id)}  >Excluir</td>
-                                            <td style={{ cursor: 'pointer' }} onClick={() => handleDelete(a.id)}  >Adicionar</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </Container>
             <FooterPage />
-        </div>
+        </>
     );
 
 }
