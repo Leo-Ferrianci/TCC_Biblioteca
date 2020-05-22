@@ -23,21 +23,24 @@ import {
 
 import api from "../services/api";
 
-export default function Student() {
+export default function Project() {
   const [course, setCourse] = useState([])
   const [project, setProject] = useState([])
-  const [cs_username, setcs_username] = useState('')
+  const [pt_username, setpt_username] = useState('')
+  const [pt_students, setpt_students] = useState('')
+  const [pt_year, setpt_year] = useState('')
   const [image, setImage] = useState('')
   const [load, setLoad] = useState(false)
 
   useEffect(() => {
     async function loadCourse() {
       const id = JSON.parse(localStorage.getItem('course_id'))
-      const response = await api.get(`/projects/${id}`);
+      const response = await api.get(`/filterprojects/${id}?pt_username=${pt_username}&pt_students=${pt_students}&pt_year${pt_year}`);
       setProject(response.data);
+      console.log(response.data)
     }
     loadCourse();
-  }, []);
+  }, [ pt_username, pt_students, pt_year ]);
 
   async function getProject() {
     const id = JSON.parse(localStorage.getItem('course_id'))
@@ -55,8 +58,8 @@ export default function Student() {
 
   async function getUpdate(a) {
     window.location.replace(`/admin/editProject/${a}`)
-
-    localStorage.setItem('course_id', a);
+    // console.log(a)
+    localStorage.setItem('project_id', a);
   }
 
   return (
@@ -66,10 +69,12 @@ export default function Student() {
         <Row className="d-flex align-items-center mt-3 mb-4">
           <Col lg="5">
             <InputGroup>
-              <Input placeholder="username" />
-              <InputGroupAddon addonType="append">
-                <InputGroupText>Procurar</InputGroupText>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>Procurar por</InputGroupText>
               </InputGroupAddon>
+              <Input placeholder="Nome" value={pt_username} onChange={(event) => setpt_username(event.target.value)} />
+              <Input placeholder="Alunos" value={pt_students} onChange={(event) => setpt_students(event.target.value)} />
+              <Input placeholder="Ano" value={pt_year} onChange={(event) => setpt_year(event.target.value)} />
             </InputGroup>
           </Col>
           <Col lg="3">

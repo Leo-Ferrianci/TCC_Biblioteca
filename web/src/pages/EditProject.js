@@ -27,7 +27,7 @@ import {
 import api from "../services/api";
 import "../assets/css/styles.css";
 
-export default function Course({ history }) {
+export default function EditProject() {
   // Variaveis Curso
   const [pt_username, setpt_username] = useState('')
   const [pt_students, setpt_students] = useState('')
@@ -35,12 +35,14 @@ export default function Course({ history }) {
 
   useEffect(() => {
     async function loadProject() {
-      const id = JSON.parse(localStorage.getItem('course_id'))
+      const id = JSON.parse(localStorage.getItem('project_id'))
+      console.log(id)
       if (id) {
-        const response = await api.get(`/projects/${id}`);
-        setpt_username(response.data[0].pt_username);
-        setpt_students(response.data[0].pt_students);
-        setpt_year(response.data[0].pt_year);
+        const response = await api.get(`/listprojects/${id}`);
+        console.log(response.data)
+        setpt_username(response.data.pt_username);
+        setpt_students(response.data.pt_students);
+        setpt_year(response.data.pt_year);
       } else {
         alert('deu ruim')
       }
@@ -49,7 +51,7 @@ export default function Course({ history }) {
   }, []);
 
   async function handleUpdate() {
-    const id = JSON.parse(localStorage.getItem('course_id'))
+    const id = JSON.parse(localStorage.getItem('project_id'))
     if (id) {
       const response = await api.put(`/projects/${id}`, {
         pt_username,
@@ -58,7 +60,7 @@ export default function Course({ history }) {
       })
 
       if (response.data) {
-        const id = JSON.parse(localStorage.getItem('course_id'))
+        const id = JSON.parse(localStorage.getItem('project_id'))
         window.location.replace(`/admin/project/${id}`)
       }
     }

@@ -45,6 +45,12 @@ class ProjectController {
     return  project
   }
 
+  async showProject({ params }) {
+    const project = await Project.findOrFail(params.id)
+
+    return project
+  }
+
   async update({ params, request }) {
     const project = await Project.findOrFail(params.id)
 
@@ -59,6 +65,23 @@ class ProjectController {
     await project.save()
 
     return project
+  }
+
+  async filterProjects({ request, params }) {
+    const {
+      pt_username,
+      pt_students,
+      pt_year
+    } = request.all()
+
+    const filters = await Project.query()
+      .when(request.input('pt_username'), (q, value) => q.where('pt_username',  'LIKE', '%' + value + '%'))
+      .when(request.input('pt_students'), (q, value) => q.where('pt_students', 'LIKE', '%' + value + '%'))
+      .when(request.input('pt_students'), (q, value) => q.where('pt_students',  'LIKE', '%' + value + '%'))
+      .where('course_id',  params.id)
+      .fetch()
+
+    return filters
   }
 
   async destroy({ params }) {

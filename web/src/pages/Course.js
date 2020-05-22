@@ -27,12 +27,7 @@ import "../assets/css/styles.css";
 export default function Course({ history }) {
   // Variaveis Curso
   const [course, setCourse] = useState([])
-
-  //Variaveis Project
-  const [project, setProject] = useState([])
-  const [pt_username, setpt_username] = useState([])
-  const [pt_students, setpt_students] = useState([])
-  const [pt_year, setpt_year] = useState([])
+  const [cs_username, setcs_username] = useState('')
 
   //Modal
   const [modal, setModal] = useState(false);
@@ -41,11 +36,11 @@ export default function Course({ history }) {
 
   useEffect(() => {
     async function loadCourse() {
-      const response = await api.get(`/courses`);
+      const response = await api.get(`/filtercourses?cs_username=${cs_username}`);
       setCourse(response.data);
     }
     loadCourse();
-  }, []);
+  }, [cs_username]);
 
   async function handleDelete(a) {
     await api.delete(`/courses/${a}`).catch(e => {
@@ -73,7 +68,7 @@ export default function Course({ history }) {
         <Row className="d-flex align-items-center mt-3 mb-4">
           <Col lg="5">
             <InputGroup>
-              <Input placeholder="username" />
+              <Input placeholder="username" value={cs_username} onChange={(event) => setcs_username(event.target.value)} />
               <InputGroupAddon addonType="append">
                 <InputGroupText>Procurar</InputGroupText>
               </InputGroupAddon>
@@ -106,7 +101,7 @@ export default function Course({ history }) {
                 <th scope="row">{a.cs_username}</th>
                 <td>
                   <span style={{ cursor: 'pointer' }} onClick={() => getProject(a.id)}>
-                    Criar
+                    Acervo
                   </span>
                 </td>
                 <td className="text-center">

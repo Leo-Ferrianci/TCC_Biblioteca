@@ -20,7 +20,7 @@ import {
 
 import api from "../services/api";
 
-export default function Student() {
+export default function CreateCurse() {
     const [course, setCourse] = useState([])
     const [cs_username, setcs_username] = useState('')
     const [image, setImage] = useState('')

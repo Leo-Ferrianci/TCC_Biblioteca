@@ -30,6 +30,8 @@ Route.get('/courses', 'CourseController.index')
 
 Route.get('/courses/:id', 'CourseController.show')
 
+Route.get('/filtercourses', 'CourseController.courseFilter')
+
 Route.post('/courses', 'CourseController.store')
 // .middleware('auth')
 
@@ -44,6 +46,10 @@ Route.delete('/courses/:id', 'CourseController.destroy')
   Route.get('/projects', 'ProjectController.index')
 
   Route.get('/projects/:id', 'ProjectController.show')
+
+  Route.get('/listprojects/:id', 'ProjectController.showProject')
+
+  Route.get('/filterprojects/:id', 'ProjectController.filterProjects')
 
   Route.post('/projects/:id', 'ProjectController.store')
 // .middleware('auth')

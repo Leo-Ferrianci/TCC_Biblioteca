@@ -27,7 +27,7 @@ import {
 import api from "../services/api";
 import "../assets/css/styles.css";
 
-export default function Course({ history }) {
+export default function EditCourse({ history }) {
   // Variaveis Curso
   const [cs_username, setcs_username] = useState([])
 

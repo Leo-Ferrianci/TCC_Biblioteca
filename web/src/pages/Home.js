@@ -154,9 +154,9 @@ export default function Home() {
                         {project.map(project => (
                             <tbody key={project.id}>
                                 <tr className="align-items-center">
-                                    <th scope="row">{project.username}</th>
-                                    <td>{project.students}</td>
-                                    <td className="text-center">{project.year}</td>
+                                    <th scope="row">{project.pt_username}</th>
+                                    <td>{project.pt_students}</td>
+                                    <td className="text-center">{project.pt_year}</td>
                                     <td className="text-center">
                                         <span style={{ cursor: 'pointer' }}>
                                             Download

@@ -33,28 +33,24 @@ export default function BasicExample() {
         <Route path="/admin/course">
           <Course />
         </Route>
-        <Route exact path="/admin/create">
+        <Route path="/admin/create">
           <Create />
         </Route>
-        <Route exact path="/admin/editCourse/:id">
+        <Route path="/admin/editCourse/:id">
           <EditCourse />
         </Route>
 
-        <Route exact path="/admin/project/:id">
+        <Route path="/admin/project/:id">
           <Project />
         </Route>
-        <Route exact path="/admin/createProject/:id">
+        <Route path="/admin/createProject/:id">
           <CreateProject />
         </Route>
-        <Route exact path="/admin/editProject/:id">
+        <Route path="/admin/editProject/:id">
           <EditProject />
         </Route>
 
-
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/admin/student">
+        <Route path="/admin/student">
           <Student />
         </Route>
       </Switch>

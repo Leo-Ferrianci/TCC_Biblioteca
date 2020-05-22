@@ -49,6 +49,18 @@ class CourseController {
     return course
   }
 
+  async courseFilter ({ request }) {
+    const {
+      cs_username,
+    } = request.all()
+
+
+    const filter = await Course.query( ).where("cs_username", 'LIKE', '%' + cs_username + '%').fetch()
+    console.log(filter)
+
+    return filter
+  }
+
   async destroy({ params }) {
     const course = await Course.findOrFail(params.id);
     await course.delete();
