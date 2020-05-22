@@ -8,6 +8,8 @@ import {
 import Home from './pages/Home'
 import Course from './pages/Course'
 import Create from './pages/CreateCourse'
+import Project from './pages/Project'
+import CreateProject from './pages/CreateProject'
 import Login from './pages/Login'
 import Student from './pages/Student'
 
@@ -21,12 +23,21 @@ export default function BasicExample() {
         <Route exact path="/home">
           <Home />
         </Route>
-        <Route path="/auth/course/:id">
+        <Route path="/admin/course">
           <Course />
         </Route>
         <Route exact path="/admin/create">
           <Create />
         </Route>
+
+        <Route exact path="/admin/project/:id">
+          <Project />
+        </Route>
+        <Route exact path="/admin/createProject/:id">
+          <CreateProject />
+        </Route>
+
+
         <Route exact path="/login">
           <Login />
         </Route>
@@ -37,4 +48,3 @@ export default function BasicExample() {
     </Router>
   );
 }
-

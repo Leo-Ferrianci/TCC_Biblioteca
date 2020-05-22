@@ -122,7 +122,7 @@ export default function Home() {
                                         />
                                     </Col>
                                     <Col lg="8" className="d-flex align-items-center justify-content-center">
-                                        <span style={{ fontSize: 30 }}>{a.username}</span>
+                                        <span style={{ fontSize: 30 }}>{a.cs_username}</span>
                                     </Col>
                                     <Col lg="2" className="d-flex align-items-center justify-content-center">
 
@@ -155,7 +155,7 @@ export default function Home() {
                             <tbody key={project.id}>
                                 <tr className="align-items-center">
                                     <th scope="row">{project.username}</th>
-                                    <td>{project.student}</td>
+                                    <td>{project.students}</td>
                                     <td className="text-center">{project.year}</td>
                                     <td className="text-center">
                                         <span style={{ cursor: 'pointer' }}>

@@ -9,9 +9,9 @@ class ProjectController {
 
     const course = await Course.findOrFail(params.id)
     const data = request.only([
-      "username",
-      "students",
-      "year"
+      "pt_username",
+      "pt_students",
+      "pt_year"
     ])
 
     const project = await Project.create({...data, course_id: course.$originalAttributes.id})

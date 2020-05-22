@@ -6,7 +6,7 @@ const Course = use("App/Models/Course")
 class CourseController {
   async store({ request }) {
     const data = request.only([
-      "username",
+      "cs_username",
     ])
 
     const course = await Course.create(data)

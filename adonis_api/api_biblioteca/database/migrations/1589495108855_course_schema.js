@@ -7,7 +7,7 @@ class CourseSchema extends Schema {
   up () {
     this.create('courses', (table) => {
       table.increments()
-      table.string('username', 80).notNullable().unique()
+      table.string('cs_username', 80).notNullable().unique()
       table.timestamps()
     })
   }

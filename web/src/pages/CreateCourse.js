@@ -21,7 +21,7 @@ import api from "../services/api";
 
 export default function Student() {
     const [course, setCourse] = useState([])
-    const [username, setUsername] = useState('')
+    const [cs_username, setcs_username] = useState('')
     const [image, setImage] = useState('')
     const [load, setLoad] = useState(false)
 
@@ -36,25 +36,25 @@ export default function Student() {
     async function handleRegister(e) {
         setLoad(true)
         const response = await api.post('/courses', {
-            username,
+            cs_username,
         })
         setLoad(false)
-        setUsername('');
+        setcs_username('');
         setImage('');
         setCourse([...course, response.data])
     }
 
     async function handleDelete(a) {
         await api.delete(`/courses/${a}`).catch(e => {
-          alert('Erro ao deletar anúncio.')
+            alert('Erro ao deletar anúncio.')
         });
         window.location.reload()
-      }
+    }
 
     return (
         <div>
             <NavBar />
-            <Row>
+            <Row style={{ maxWidth: '100%', minHeight: 500 }}>
                 <Col lg="9" className="mb-5 ml-5">
                     <Row className="mt-3">
                         <Col lg="4">
@@ -66,8 +66,8 @@ export default function Student() {
                                             <Input
                                                 type="text"
                                                 name="text"
-                                                value={username}
-                                                onChange={event => setUsername(event.target.value)}
+                                                value={cs_username}
+                                                onChange={event => setcs_username(event.target.value)}
                                             />
                                         </FormGroup>
                                         {/* <FormGroup>
@@ -100,14 +100,16 @@ export default function Student() {
                                         <th>Nome</th>
                                         <th>Editar</th>
                                         <th>Deletar</th>
+                                        <th>Adicionar TCC</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="text-center">
                                     {course.map(a => (
                                         <tr key={a._id}>
-                                            <th scope="row">{a.username}</th>
+                                            <th scope="row">{a.cs_username}</th>
                                             <td>Atualizar</td>
-                                            <td style={{cursor:'pointer'}} onClick={() => handleDelete(a.id)}  >Excluir</td>
+                                            <td style={{ cursor: 'pointer' }} onClick={() => handleDelete(a.id)}  >Excluir</td>
+                                            <td style={{ cursor: 'pointer' }} onClick={() => handleDelete(a.id)}  >Adicionar</td>
                                         </tr>
                                     ))}
                                 </tbody>
