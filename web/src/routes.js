@@ -18,6 +18,8 @@ import EditProject from './pages/EditProject'
 import Login from './pages/Login'
 
 import Student from './pages/Student'
+import Admin from './pages/Admin'
+import EditUser from './pages/EditUser'
 
 export default function BasicExample() {
   return (
@@ -52,6 +54,14 @@ export default function BasicExample() {
 
         <Route path="/admin/student">
           <Student />
+        </Route>
+
+        <Route path="/admin/admin">
+          <Admin />
+        </Route>
+
+        <Route path="/admin/editUser">
+          <EditUser />
         </Route>
       </Switch>
     </Router>

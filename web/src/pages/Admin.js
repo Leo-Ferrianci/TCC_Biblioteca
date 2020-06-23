@@ -21,7 +21,7 @@ import {
 import "../assets/css/styles.css";
 import api from "../services/api";
 
-export default function Student() {
+export default function Admin() {
     const [student, setStudent] = useState([])
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -31,7 +31,7 @@ export default function Student() {
 
     useEffect(() => {
         async function loadStudent() {
-            const response = await api.get('/users');
+            const response = await api.get('/usersAdmin');
             setStudent(response.data);
         }
         loadStudent();
@@ -43,7 +43,7 @@ export default function Student() {
             username,
             email,
             password,
-            controller: 0
+            controller: 1
         })
 
         setLoad(false)

@@ -63,6 +63,7 @@ class CourseController {
 
   async destroy({ params }) {
     const course = await Course.findOrFail(params.id);
+    console.log(course)
     await course.delete();
     return 'Curso deletado com sucesso'
   }

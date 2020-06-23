@@ -9,7 +9,9 @@ Route.get('/', () => {
 })
 
 // Capturando as rotas de Usuário e sessão
-Route.get('/users', 'UserController.index')
+Route.get('/usersAdmin', 'UserController.indexAdmin')
+
+Route.get('/users', 'UserController.indexUser')
 
 Route.get('/users/:id', 'UserController.show')
 

@@ -121,6 +121,9 @@ export default function NavBar() {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
+                  <NavLink href="/admin/admin" style={{ color: "#231f20" }}>CRUD Admin</NavLink>
+                </DropdownItem>
+                <DropdownItem>
                   <NavLink href="/admin/student" style={{ color: "#231f20" }}>CRUD Aluno</NavLink>
                 </DropdownItem>
                 <DropdownItem divider />

@@ -49,17 +49,18 @@ export default function Course({ history }) {
     window.location.reload()
   }
 
+  async function getUpdate(a) {
+    window.location.replace(`/admin/editCourse/${a}`)
+
+    localStorage.setItem('course_id', a);
+  }
+
   async function getProject(a) {
     window.location.replace(`/admin/project/${a}`)
 
     localStorage.setItem('course_id', a);
   }
 
-  async function getUpdate(a) {
-    window.location.replace(`/admin/editCourse/${a}`)
-
-    localStorage.setItem('course_id', a);
-  }
 
   return (
     <>

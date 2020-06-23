@@ -17,11 +17,22 @@ class UserController {
     return user
   }
 
-  async index() {
+  async indexAdmin() {
     const users = await Database.select('*').from('users')
 
     const user = User
       .query()
+      .where('controller', 1)
+      .fetch()
+    return users, user
+  }
+
+  async indexUser() {
+    const users = await Database.select('*').from('users')
+
+    const user = User
+      .query()
+      .where('controller', 0)
       .fetch()
     return users, user
   }
@@ -33,14 +44,12 @@ class UserController {
     return user
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const user = await User.findOrFail(params.id)
 
-    const { data } = request.only([
+    const data = request.only([
       "username",
-      "surname",
       "email",
-      "controller"
     ])
 
     user.merge(data)
